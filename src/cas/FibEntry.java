@@ -8,6 +8,22 @@ import java.util.concurrent.atomic.AtomicLong;
  * Created by ilya on 04.05.2017.
  */
 public class FibEntry {
+public class FibEntry
+{
+  public static void main(String[] args) throws InterruptedException
+  {
+    ExecutorService es = Executors.newFixedThreadPool(3);
+    FibLongCAS fb = new FibLongCAS();
+    int iterationNumber=28;
+    boolean bPrintIntermediate=true;
+    Runnable r1 = new FibLongCASTask(iterationNumber,fb,bPrintIntermediate);
+    Runnable r2 = new FibLongCASTask(iterationNumber,fb,bPrintIntermediate);
+    Runnable r3 = new FibLongCASTask(iterationNumber,fb,bPrintIntermediate);
+    es.submit(r1);
+    es.submit(r2);
+    es.submit(r3);
+    es.shutdown();
+    Thread.sleep(300);
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService es = Executors.newFixedThreadPool(3);
@@ -50,6 +66,8 @@ public class FibEntry {
             } while (!(anotherIsBigger ? oneAtomic.compareAndSet(one, next) : anotherAtomic.compareAndSet(another, next)));
             return next;
         }
+      } while (!prevToUpdate.compareAndSet(locprev,locval1+locval2 ));
+      return locval1+locval2;
 
     }
 
@@ -78,6 +96,10 @@ public class FibEntry {
         public long get() {
             return (val2.get() > val1.get() ? val2.get() : val1.get());
         }
+    public long get(){
+      long locval1=val1.get();
+      long locval2=val2.get();
+      return (locval1>locval2?locval1:locval2);
     }
 
     static class FibLongCASTask implements Runnable {
