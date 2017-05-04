@@ -9,7 +9,7 @@ class Consumer2 extends Thread {
     private Queue<QueueBean> queue;
     private int maxSize;
 
-    public Consumer2(Queue<QueueBean> queue, int maxSize, String name){
+    public Consumer2(Queue<QueueBean> queue, int maxSize, String name) {
         super(name);
         this.queue = queue;
         this.maxSize = maxSize;
@@ -17,7 +17,7 @@ class Consumer2 extends Thread {
 
     @Override
     public void run() {
-        int i=0;
+        int i = 0;
         while (true) {
             synchronized (queue) {
                 while (queue.isEmpty()) {
@@ -32,27 +32,24 @@ class Consumer2 extends Thread {
 
                 }
 
-                QueueBean bean = (QueueBean)queue.peek();
-                if (!bean.redByFirst)
-                {
-                  bean.redBySecond = true;
-                  System.out.println("read by second :" +bean.getValue());
+                QueueBean bean = (QueueBean) queue.peek();
+                if (!bean.redByFirst) {
+                    bean.redBySecond = true;
+                    System.out.println("read by second :" + bean.getValue());
 //                  queue.notifyAll();
 
-                  try {
-                      queue.wait();
-                  } catch (Exception ex) {
-                      ex.printStackTrace();
-                  }
+                    try {
+                        queue.wait();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
 
-                }
-                else
-                {
-                  System.out.println("Consuming value (2) : " + ((QueueBean)queue.remove()).getValue());
-                  queue.notifyAll();
+                } else {
+                    System.out.println("Consuming value (2) : " + ((QueueBean) queue.remove()).getValue());
+                    queue.notifyAll();
                 }
             }
-          i++;
+            i++;
 
         }
     }

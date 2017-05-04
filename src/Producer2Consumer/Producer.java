@@ -12,21 +12,21 @@ class Producer extends Thread {
     private int range;
 
 
-    public Producer(Queue<QueueBean> queue, int maxSize, String name, int range){
+    public Producer(Queue<QueueBean> queue, int maxSize, String name, int range) {
         super(name);
         this.queue = queue;
         this.maxSize = maxSize;
-        this.range=range;
+        this.range = range;
     }
 
     @Override
     public void run() {
-        int i=1;
-        while (i<=range) {
+        int i = 1;
+        while (i <= range) {
             synchronized (queue) {
                 while (queue.size() == maxSize) {
                     try {
-                        System.out .println("Queue is full, "
+                        System.out.println("Queue is full, "
                                 + "Producer thread waiting for "
                                 + "consumer to take something from queue");
                         queue.wait();

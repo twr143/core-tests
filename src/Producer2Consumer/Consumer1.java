@@ -9,7 +9,7 @@ class Consumer1 extends Thread {
     private Queue<QueueBean> queue;
     private int maxSize;
 
-    public Consumer1(Queue<QueueBean> queue, int maxSize, String name){
+    public Consumer1(Queue<QueueBean> queue, int maxSize, String name) {
         super(name);
         this.queue = queue;
         this.maxSize = maxSize;
@@ -17,7 +17,7 @@ class Consumer1 extends Thread {
 
     @Override
     public void run() {
-        int i=0;
+        int i = 0;
         while (true) {
             synchronized (queue) {
                 while (queue.isEmpty()) {
@@ -32,11 +32,10 @@ class Consumer1 extends Thread {
 
                 }
 
-                QueueBean bean = (QueueBean)queue.peek();
-                if (!bean.redBySecond)
-                {
+                QueueBean bean = (QueueBean) queue.peek();
+                if (!bean.redBySecond) {
                     bean.redByFirst = true;
-                    System.out.println("read by first : "+bean.getValue());
+                    System.out.println("read by first : " + bean.getValue());
 
 //                    queue.notifyAll();
 
@@ -46,10 +45,8 @@ class Consumer1 extends Thread {
                         ex.printStackTrace();
                     }
 
-                }
-                else
-                {
-                    System.out.println("Consuming value (1) : " + ((QueueBean)queue.remove()).getValue());
+                } else {
+                    System.out.println("Consuming value (1) : " + ((QueueBean) queue.remove()).getValue());
                     queue.notifyAll();
                 }
             }
