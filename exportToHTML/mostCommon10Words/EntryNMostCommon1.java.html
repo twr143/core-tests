@@ -1,0 +1,76 @@
+<html>
+<head>
+<title>EntryNMostCommon1.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(0,128,0); font-weight: bold; }
+.s4 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+EntryNMostCommon1.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">mostCommon10Words; 
+ 
+</span><span class="s0">import </span><span class="s1">java.util.*; 
+ 
+</span><span class="s2">/** 
+ * Created by ilya on 13.11.2016. 
+ */</span><span class="s1"> 
+</span><span class="s0">public class </span><span class="s1">EntryNMostCommon1 
+{ 
+  </span><span class="s2">// searches for n most common words in text</span><span class="s1"> 
+  </span><span class="s0">public static void </span><span class="s1">printNMostCommonWords(String text, </span><span class="s0">int </span><span class="s1">n) 
+  { 
+    String[] words = text.split(</span><span class="s3">&quot;</span><span class="s0">\\</span><span class="s3">s*,*</span><span class="s0">\\</span><span class="s3">s+&quot;</span><span class="s1">); 
+ 
+     HashMap&lt;String,Integer&gt; occurences = </span><span class="s0">new </span><span class="s1">HashMap&lt;String, Integer&gt;(); 
+     </span><span class="s0">for </span><span class="s1">(String w:words){ 
+       </span><span class="s0">if </span><span class="s1">( occurences.containsKey(w)) 
+         occurences.put(w,occurences.get(w)+</span><span class="s4">1</span><span class="s1">); 
+       </span><span class="s0">else</span><span class="s1"> 
+         occurences.put(w,</span><span class="s4">1</span><span class="s1">); 
+     } 
+    TreeSet&lt;Map.Entry&lt;String, Integer&gt;&gt; occurSorted = </span><span class="s0">new </span><span class="s1">TreeSet(</span><span class="s0">new </span><span class="s1">Comparator&lt;Map.Entry&lt;String, Integer&gt;&gt;() 
+     { 
+       @Override 
+       </span><span class="s0">public int </span><span class="s1">compare(Map.Entry&lt;String, Integer&gt; o1, Map.Entry&lt;String, Integer&gt; o2) 
+       { 
+         </span><span class="s0">int </span><span class="s1">major = - o1.getValue().compareTo(o2.getValue()); 
+         </span><span class="s0">return </span><span class="s1">major==</span><span class="s4">0</span><span class="s1">? o1.getKey().compareTo(o2.getKey()):major; 
+       } 
+     }); 
+ 
+ 
+     </span><span class="s0">for </span><span class="s1">(Map.Entry&lt;String,Integer&gt; entry: occurences.entrySet()) 
+     { 
+       occurSorted.add(</span><span class="s0">new </span><span class="s1">AbstractMap.SimpleEntry&lt;String,Integer&gt;(entry.getKey(),entry.getValue())); 
+     } 
+ 
+    </span><span class="s0">int </span><span class="s1">i=</span><span class="s4">0</span><span class="s1">; 
+    </span><span class="s0">for </span><span class="s1">(AbstractMap.Entry&lt;String,Integer&gt; e:occurSorted) 
+    { 
+      </span><span class="s0">if </span><span class="s1">(i &lt; n) 
+        System.out.println(e.getKey()+</span><span class="s3">&quot;:&quot;</span><span class="s1">+e.getValue()); 
+      </span><span class="s0">else</span><span class="s1"> 
+        </span><span class="s0">break</span><span class="s1">; 
+      i++; 
+    } 
+  } 
+  </span><span class="s0">public static void </span><span class="s1">main(String[] args) 
+  { 
+    String text = </span><span class="s3">&quot;abc def abc abc, ghk, def, 56 12 7 7, 12, 34 7 7 65 def 65 def 65 def 65 65&quot;</span><span class="s1">; 
+    printNMostCommonWords(text,</span><span class="s4">5</span><span class="s1">); 
+  } 
+} 
+</span></pre>
+</body>
+</html>

@@ -1,0 +1,53 @@
+
+
+
+
+
+
+
+
+
+
+
+
+public static void mostCommon10WordsStream(String text){
+     String[] words = text.split("\\s+");
+     Map<String, Integer> counts= Arrays.stream(words).map(String::toLowerCase).collect(Collectors.toMap(k->k,v->1,(u,v)->u+v));
+     counts.entrySet().stream().sorted((u,v)->{
+              int cnts = -  (u.getValue() - v.getValue());
+              return cnts==0?u.getKey().compareTo(u.getKey()):cnts;
+
+     }).limit(3).forEach(e-> System.out.print(" "+e));
+
+
+
+}
+
+
+
+
+public static void mostCommon10Words(String text){
+   String[] words = text.split("\\s+");
+   Map<String, Integer> counts = new HashMap<String,Integer>();
+   for (String w:words){
+    counts.put(w, counts.getOrDefault(w,0)+1);
+   }
+   Set<Map.Entry<String,Integer>> countsSorted = new TreeSet<Map.Entry<String,Integer>>( new Comparator<Map.Entry<String,Integer>>{
+        public int compare(Map.Entry<String,Integer> e1,Map.Entry<String,Integer> e2){
+            int counts = -  (e1.getValue() - e2.getValue());
+            return counts==0?e1.getKey().compareTo(e2.getKey()):counts;
+        }
+   });
+
+   for (String key: counts.getKeys()){
+     countsSorted.add(new AbstractMap.SimpleEntry<String,Integer>(key,counts.get(key)));
+   }
+
+   in i=0;
+   for (Map.Entry<String,Integer> e:countsSorted){
+      if (i++<10)
+        sout("word: "+ e.getKey()+" counts:"+e.getValue());
+      else break;
+
+   }
+}

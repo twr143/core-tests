@@ -1,0 +1,10 @@
+Advance praise for
+Java Concurrency in Practice
+I was fortunate indeed to have worked with a fantastic team on the design and
+implementation of the concurrency features added to the Java platform in Java 5.0
+and Java 6. Now this same team provides the best explanation yet of these new
+java java
+implementation implementation implementation
+and Java 6. Now this same team provides the best explanation yet of these new
+and Java 6. Now this same team provides the best explanation yet of these new
+and Java 6. Now this same team provides the best explanation yet of these new
