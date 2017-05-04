@@ -1,7 +1,5 @@
 package cas;
 
-import kotlin.ranges.IntRange;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
@@ -16,10 +14,10 @@ public class FibEntry
     ExecutorService es = Executors.newFixedThreadPool(3);
     FibLongCAS fb = new FibLongCAS();
     int iterationNumber=17;
-    boolean bPrintIntermediate=false;
-    Runnable r1 = new Calc(iterationNumber,fb,bPrintIntermediate);
-    Runnable r2 = new Calc(iterationNumber,fb,bPrintIntermediate);
-    Runnable r3 = new Calc(iterationNumber,fb,bPrintIntermediate);
+    boolean bPrintIntermediate=true;
+    Runnable r1 = new FibLongCASTask(iterationNumber,fb,bPrintIntermediate);
+    Runnable r2 = new FibLongCASTask(iterationNumber,fb,bPrintIntermediate);
+    Runnable r3 = new FibLongCASTask(iterationNumber,fb,bPrintIntermediate);
     es.submit(r1);
     es.submit(r2);
     es.submit(r3);
@@ -62,12 +60,12 @@ public class FibEntry
       return (val2.get()>val1.get()?val2.get():val1.get());
     }
   }
-  static class Calc implements Runnable{
+  static class FibLongCASTask implements Runnable{
 
     int iters;
     FibLongCAS fb;
     boolean bPrintIntermediate;
-    public Calc(int iters, FibLongCAS fb, boolean bPrintIntermediate)
+    public FibLongCASTask(int iters, FibLongCAS fb, boolean bPrintIntermediate)
     {
       this.iters = iters;
       this.fb = fb;
