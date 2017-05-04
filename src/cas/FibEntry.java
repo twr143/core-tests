@@ -13,7 +13,7 @@ public class FibEntry
   {
     ExecutorService es = Executors.newFixedThreadPool(3);
     FibLongCAS fb = new FibLongCAS();
-    int iterationNumber=17;
+    int iterationNumber=28;
     boolean bPrintIntermediate=true;
     Runnable r1 = new FibLongCASTask(iterationNumber,fb,bPrintIntermediate);
     Runnable r2 = new FibLongCASTask(iterationNumber,fb,bPrintIntermediate);
@@ -52,12 +52,13 @@ public class FibEntry
           prevToUpdate=val2;
           locprev=locval2;
         }
-        next=locval1+locval2;
-      } while (!prevToUpdate.compareAndSet(locprev,next ));
-      return next;
+      } while (!prevToUpdate.compareAndSet(locprev,locval1+locval2 ));
+      return locval1+locval2;
     }
     public long get(){
-      return (val2.get()>val1.get()?val2.get():val1.get());
+      long locval1=val1.get();
+      long locval2=val2.get();
+      return (locval1>locval2?locval1:locval2);
     }
   }
   static class FibLongCASTask implements Runnable{
