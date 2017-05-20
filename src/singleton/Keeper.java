@@ -18,7 +18,7 @@ public class Keeper
   }
 
   static class DataHolder{
-    public static final Data instance = new Data();
+    public static /*final*/ Data instance = new Data();
   }
 
   Data getDataBySH(){
