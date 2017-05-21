@@ -1,6 +1,5 @@
-package arrayCommon;
+package collectionsCommon;
 
-import java.awt.print.Printable;
 import java.util.LinkedList;
 import java.util.List;
 
