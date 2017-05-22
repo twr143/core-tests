@@ -5,9 +5,7 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -53,6 +51,12 @@ public class QSortEntry1
       Arrays.sort(a);
     }
 
+    @Benchmark
+    @BenchmarkMode(Mode.AverageTime) @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    public static void testQSortLineraAlex() {
+  //        print(a);
+      quickSortLinearAlex(a);
+    }
 
   @Setup(Level.Invocation)
   public static void setUp()
@@ -200,4 +204,50 @@ public class QSortEntry1
     }
   }
 
+  private static void quickSortLinearAlex(int[] elements)
+  {
+    class QSortTask
+    {
+      final int from;
+      // Inclusive
+      final int to;
+
+      public QSortTask(int from, int to)
+      {
+        this.from = from;
+        this.to = to;
+      }
+
+      boolean needsProcessing()
+      {
+        return from < to;
+      }
+    }
+    Deque<QSortTask> qSortTasks = new ArrayDeque<>();
+    qSortTasks.add(new QSortTask(0, elements.length - 1));
+
+    while (!qSortTasks.isEmpty())
+    {
+      QSortTask task = qSortTasks.pollFirst();
+
+      if (task.needsProcessing())
+      {
+        int pivot = elements[task.to];
+
+        int g = task.from;
+        for (int j = task.from; j < task.to; ++j)
+        {
+          int element = elements[j];
+          if (element < pivot)
+          {
+            swap(elements, g++, j);
+          }
+        }
+        swap(elements, g, task.to);
+
+        qSortTasks.push(new QSortTask(task.from, g - 1));
+        qSortTasks.push(new QSortTask(g + 1, task.to));
+      }
+    }
+  }
 }
