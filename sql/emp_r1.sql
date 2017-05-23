@@ -1,6 +1,8 @@
-drop table emp;
-drop table dept;
-drop table title;
+drop table emp CASCADE CONSTRAINTS ;
+drop table dept CASCADE CONSTRAINTS ;
+drop table title CASCADE CONSTRAINTS ;
+drop table persd CASCADE CONSTRAINTS ;
+
 create table dept(
   deptno number(2,0),
   dname  varchar2(14),
@@ -166,5 +168,30 @@ values (4, 2001, 3000);
 insert into salgrade
 values (5, 3001, 9999);
 */
+create table persd(
+  id    number(4,0),
+  name    varchar2(10) not NULL,
+  constraint pk_pers primary key (id)
+);
+
+insert into persd
+values(
+ 1, 'VOLY' );
+
+insert into persd
+values(
+ 2, 'VOLY' );
+
+insert into persd
+values(
+ 3, 'ILYA' );
+
+insert into persd
+values(
+ 4, 'ILYA' );
+
+insert into persd
+values(
+ 5, 'ILYA' );
 
 commit;

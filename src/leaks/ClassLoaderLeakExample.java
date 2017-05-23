@@ -53,7 +53,7 @@ public final class ClassLoaderLeakExample {
           ex.printStackTrace();
         }
         try {
-          Thread.sleep(1000);
+          Thread.sleep(100);
         } catch (InterruptedException ex) {
           System.out.println("Caught InterruptedException, shutting down.");
           running = false;
@@ -119,14 +119,15 @@ public final class ClassLoaderLeakExample {
     // makes the effect visible more quickly.
     // Note that we're really leaking these bytes, since we're effectively
     // creating a new instance of this static final field on each iteration!
-    static final byte[] moreBytesToLeak = new byte[1024 * 1024 * 100];
+    byte[] moreBytesToLeak = new byte[1024 * 1024 * 100];
   
-    private static final ThreadLocal<LoadedInChildClassLoader> threadLocal
-        = new ThreadLocal<>();
+    private ThreadLocal threadLocal
+        = new ThreadLocal();
     
     public LoadedInChildClassLoader() {
+      super();
       // Stash a reference to this class in the ThreadLocal
-      threadLocal.set(this);
+      threadLocal.set(moreBytesToLeak);
     }
   }
 }

@@ -13,8 +13,8 @@ public class MostCommonWE2
   public static void main(String[] args)
   {
     String source = " abc abc xyz def ghi ghi def abc xyz uvw uvw";
-//    mostCommon10Words(source);
-    mostCommon10WordsStream2(source);
+    mostCommon10Words(source);
+//    mostCommon10WordsStream2(source);
   }
   public static void mostCommon10Words(String text){
      String[] words = text.split("\\s+");
@@ -35,10 +35,10 @@ public class MostCommonWE2
      }
 
      int i=0;
-     for (Map.Entry<String,Integer> e:countsSorted){
-       if (i++ < 3)
-         System.out.println("word: "+ e.getKey()+" counts:"+e.getValue());
-       else break;
+    Iterator<Map.Entry<String,Integer>> it= countsSorted.iterator();
+     while ( it.hasNext() && i++<3){
+       Map.Entry<String,Integer> e=it.next();
+       System.out.println("word: "+ e.getKey()+" counts:"+e.getValue());
 
      }
   }
