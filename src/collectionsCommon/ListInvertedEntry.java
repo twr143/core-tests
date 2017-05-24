@@ -1,5 +1,9 @@
 package collectionsCommon;
 
+import kotlin.ranges.IntRange;
+
+import java.util.stream.IntStream;
+
 /**
  * Created by ilya on 24.05.2017.
  */
@@ -8,11 +12,9 @@ public class ListInvertedEntry
 
   public static void main(String[] args)
   {
-    add( new Node(1));
-    add( new Node(2));
-    add( new Node(3));
-    add( new Node(4));
-    add( new Node(5));
+    IntStream.range(0,1000).forEach(i->
+            add( new Node(i))
+    );
     print();
     inverse();
     print();
@@ -48,28 +50,28 @@ public class ListInvertedEntry
 
   static void inverse(){
     Node lHead=head;
-    Node currentNode=lHead.next;
-    if (currentNode==null)         // 1 element in the list only
+    Node current=lHead.next;
+    if (current==null)         // 1 element in the list only
       return;
-    Node nextNode = currentNode.next;
-    Node prevNode = lHead;
-    if (nextNode!=null){
+    Node next = current.next;
+    Node prev = lHead;
+    if (next!=null){
       //3 or more elements
-      while (nextNode!=null){
-        currentNode.next=prevNode;      // reverse next to previous
-        if (prevNode==head)
-          prevNode.next=null;
-        prevNode=currentNode;
-        currentNode=nextNode;
-        nextNode=nextNode.next;
+      while (next!=null){
+        current.next=prev;      // reverse next to previous
+        if (prev==head)
+          prev.next=null;
+        prev=current;
+        current=next;
+        next=next.next;
       }
-      currentNode.next=prevNode;
-      head=currentNode;
+      current.next=prev;
+      head=current;
     }else{
       //2 elements only
-      prevNode.next=null;
-      currentNode.next=prevNode;
-      head=currentNode;
+      prev.next=null;
+      current.next=prev;
+      head=current;
     }
   }
 }
