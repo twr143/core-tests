@@ -5,7 +5,7 @@ package defaultmethods;
  */
 public interface Card extends Comparable<Card> {
 
-    public enum Suit {
+    public static enum Suit {
         DIAMONDS (1, "Diamonds"),
         CLUBS    (2, "Clubs"   ),
         HEARTS   (3, "Hearts"  ),
