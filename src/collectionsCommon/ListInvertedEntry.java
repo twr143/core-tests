@@ -33,12 +33,10 @@ public class ListInvertedEntry
   }
   static Node head=null;
   static void add(Node newNode){
-//    Node lHead = head;
     newNode.next=head;
     head=newNode;
   }
   static void print(){
-//    Node lHead = head;
     Node lHead=head;
     while (lHead!=null){
       System.out.print(lHead+" ");
@@ -50,28 +48,28 @@ public class ListInvertedEntry
 
   static void inverse(){
     Node lHead=head;
-    Node current=lHead.next;
-    if (current==null)         // 1 element in the list only
+    Node currentNode=lHead.next;
+    if (currentNode==null)         // 1 element in the list only
       return;
-    Node next = current.next;
-    Node prev = lHead;
-    if (next!=null){
+    Node nextNode = currentNode.next;
+    Node prevNode = lHead;
+    if (nextNode!=null){
       //3 or more elements
-      while (next!=null){
-        current.next=prev;      // reverse next to previous
-        if (prev==head)
-          prev.next=null;
-        prev=current;
-        current=next;
-        next=next.next;
+      while (nextNode!=null){
+        currentNode.next=prevNode;      // reverse next to previous
+        if (prevNode==head)
+          prevNode.next=null;
+        prevNode=currentNode;
+        currentNode=nextNode;
+        nextNode=nextNode.next;
       }
-      current.next=prev;
-      head=current;
+      currentNode.next=prevNode;
+      head=currentNode;
     }else{
       //2 elements only
-      prev.next=null;
-      current.next=prev;
-      head=current;
+      prevNode.next=null;
+      currentNode.next=prevNode;
+      head=currentNode;
     }
   }
 }
