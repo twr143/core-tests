@@ -1,94 +1,101 @@
 package collectionsCommon;
 
+import java.util.Arrays;
+
 /**
  * Created by ilya on 25.05.2017.
+ * <p>
+ * stack based on linked list
+ * standard operations : push, pop, peek, printing elements and get k-th element from tail.
  */
-public class StackByLList
-{
-  public static void main(String[] args) throws Exception
-  {
-    Stack s = new Stack();
-    s.push(new Node(1));
-    s.push(new Node(2));
-    s.push(new Node(3));
-    s.printAll();
-    s.pop();
-    s.printAll();
-    s.push(new Node(3));
-    s.push(new Node(4));
-    s.push(new Node(5));
-    s.printAll();
-    System.out.println(s.KthFromLast(3));
+public class StackByLList implements Stack {
+    public static void main(String[] args) {
+        Stack s = new StackByLList();
+        s.pushAll(1, 2, 3);
+        s.printAll();
+        s.pop();
+        s.printAll();
+        s.pushAll(3, 4, 5, 6, 7);
+        s.printAll();
+        System.out.println(s.KthFromLast(3));
 
-
-  }
-  static class Node {
-      private int value;
-      public StackByLList.Node next = null;
-
-      public Node(int value) {
-          this.value = value;
-      }
-
-      @Override
-      public String toString() {
-          return "[" +
-                  +value +
-                  ']';
-      }
-  }
-  /* stack based on linked list
-  ** standard operations : push, pop, peek, printing elements and get k-th element from tail.
-  */
-  static class Stack{
-    Node head;
-    //push
-    public void push(Node n){
-      n.next=head;
-      head=n;
-    }
-    //pop
-    public Node pop() throws Exception{
-      if (head==null)
-        throw new Exception("stack is empty");
-      Node result=head;
-      head=head.next;
-      result.next=null;
-      return result;
-    }
-    //peek
-    public Node peek(){
-      return head;
-    }
-    // print all elements
-    public void printAll(){
-      Node Lhead=head;
-      while(Lhead!=null){
-        System.out.print(Lhead+" ");
-        Lhead=Lhead.next;
-      }
-      System.out.println();
+        System.out.println("ArrayStack");
+        s = new ArrayStack();
+        s.pushAll(1, 2, 3);
+        s.printAll();
+        s.pop();
+        s.printAll();
+        s.pushAll(3, 4, 5, 6, 7);
+        s.printAll();
+        System.out.println(s.KthFromLast(3));
     }
 
-    //stack size= underlying list size
-    public int size(){
-      Node Lhead=head;
-      int result=0;
-      while(Lhead!=null){
-        Lhead=Lhead.next;
-        result++;
-      }
-      return result;
+    private Node head;
+
+    private int size;
+
+    public void push(int value) {
+        head = new Node(value, head);
+        ++size;
     }
+
+    public int pop() {
+        if (head == null)
+            throw new RuntimeException("stack is empty");
+
+        int result = head.getValue();
+        head = head.getNext();
+        --size;
+        return result;
+    }
+
+    public void printAll() {
+        Node traversing = head;
+        while (traversing != null) {
+            System.out.print(traversing + " ");
+            traversing = traversing.getNext();
+        }
+        System.out.println();
+    }
+
+    public int size() {
+        return size;
+    }
+
     //k-th from last = (n-k)-th from head
-    public Node KthFromLast(int k){
-     // first find size of the list
-      Node Lhead=head;//local head
-      int iters=size()-k;
-      while(iters-->0){
-        Lhead=Lhead.next;
-      }
-      return Lhead;
+    public int KthFromLast(int k) {
+        // first find size of the list
+        Node Lhead = head;//local head
+        for (int index = 0; index < size - k; ++index) {
+            Lhead = Lhead.getNext();
+        }
+        return Lhead.getValue();
     }
-  }
+
 }
+
+class Node {
+
+    private int value;
+
+    private Node next;
+
+    public Node(int value, Node next) {
+        this.value = value;
+        this.next = next;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public Node getNext() {
+        return next;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + value + "]";
+    }
+}
+
