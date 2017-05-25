@@ -16,6 +16,7 @@ package basic;
  *  Method still needs to be synchronized.
  *  Overridden (not final) method call in clone can lead to incorrect object initialization.
  *  Clone support could lead to a need to remove final modifiers off of some fields, which is undesirable.
+ *  During cloning constructor is not called, so developer has to make all the preparations himself.
  *
  *  Instead of Cloneable/clone, class should feature a copy constructor MyType(MyType src), or a more general one MyType(IType src)
  *  which is called conversion constructor.
