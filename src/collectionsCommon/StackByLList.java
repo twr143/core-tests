@@ -39,10 +39,6 @@ public class StackByLList implements Stack {
         ++size;
     }
 
-    public void pushAll(int... value) {
-        Arrays.stream(value).forEach(this::push);
-    }
-
     public int pop() {
         if (head == null)
             throw new RuntimeException("stack is empty");
