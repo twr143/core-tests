@@ -26,7 +26,7 @@ public static void mostCommon10WordsStream(String text){
 
 
 
-public static void mostCommon10Words(String text){
+public static void logical.mostCommon10Words(String text){
    String[] words = text.split("\\s+");
    Map<String, Integer> counts = new HashMap<String,Integer>();
    for (String w:words){

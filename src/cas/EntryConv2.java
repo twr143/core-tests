@@ -2,9 +2,8 @@ package cas;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLongArray;
-import java.util.function.LongBinaryOperator;
 
-import static rainCount.DataGenerator.nCores;
+import static logical.rainCount.DataGenerator.nCores;
 
 /**
  * Created by ilya on 12.12.2016.
