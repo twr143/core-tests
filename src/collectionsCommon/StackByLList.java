@@ -18,6 +18,7 @@ public class StackByLList
     s.push(new Node(4));
     s.push(new Node(5));
     s.printAll();
+    System.out.println(s.KthFromLast(3));
 
 
   }
@@ -60,6 +61,25 @@ public class StackByLList
         Lhead=Lhead.next;
       }
       System.out.println();
+    }
+
+    public int size(){
+      Node Lhead=head;
+      int result=0;
+      while(Lhead!=null){
+        Lhead=Lhead.next;
+        result++;
+      }
+      return result;
+    }
+    public Node KthFromLast(int k){
+     // first find size of the list
+      Node Lhead=head;//local head
+      int iters=size()-k;
+      while(iters-->0){
+        Lhead=Lhead.next;
+      }
+      return Lhead;
     }
   }
 }
