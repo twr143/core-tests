@@ -4,6 +4,9 @@ import java.util.Arrays;
 
 /**
  * Created by ilya on 25.05.2017.
+ * <p>
+ * stack based on linked list
+ * standard operations : push, pop, peek, printing elements and get k-th element from tail.
  */
 public class StackByLList implements Stack {
     public static void main(String[] args) {
@@ -63,6 +66,7 @@ public class StackByLList implements Stack {
         return size;
     }
 
+    //k-th from last = (n-k)-th from head
     public int KthFromLast(int k) {
         // first find size of the list
         Node Lhead = head;//local head
