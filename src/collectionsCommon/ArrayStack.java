@@ -14,6 +14,7 @@ public class ArrayStack implements Stack {
         if (++pos >= values.length) {
             int[] biggerValues = new int[values.length << 1];
             System.arraycopy(values, 0, biggerValues, 0, values.length);
+            values = biggerValues;
         }
         values[pos] = value;
     }
