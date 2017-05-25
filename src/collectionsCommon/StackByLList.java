@@ -37,12 +37,17 @@ public class StackByLList
                   ']';
       }
   }
+  /* stack based on linked list
+  ** standard operations : push, pop, peek, printing elements and get k-th element from tail.
+  */
   static class Stack{
     Node head;
+    //push
     public void push(Node n){
       n.next=head;
       head=n;
     }
+    //pop
     public Node pop() throws Exception{
       if (head==null)
         throw new Exception("stack is empty");
@@ -51,9 +56,11 @@ public class StackByLList
       result.next=null;
       return result;
     }
+    //peek
     public Node peek(){
       return head;
     }
+    // print all elements
     public void printAll(){
       Node Lhead=head;
       while(Lhead!=null){
@@ -63,6 +70,7 @@ public class StackByLList
       System.out.println();
     }
 
+    //stack size= underlying list size
     public int size(){
       Node Lhead=head;
       int result=0;
@@ -72,6 +80,7 @@ public class StackByLList
       }
       return result;
     }
+    //k-th from last = (n-k)-th from head
     public Node KthFromLast(int k){
      // first find size of the list
       Node Lhead=head;//local head
