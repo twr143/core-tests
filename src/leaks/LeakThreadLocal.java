@@ -15,18 +15,10 @@ public class LeakThreadLocal
                     int[] moreBytesToLeak = new int[1024 * 1024 * 25];
 
                     {
-                        set(this);
+                      set(this);
                       System.out.print((count++)+" ");
                     }
                 };
-                try
-                {
-                    Thread.sleep(20);
-                }
-                catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
             }
         });
         thread.start();
