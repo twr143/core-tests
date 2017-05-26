@@ -14,9 +14,7 @@ import static java.lang.Class.forName;
 public class CustomClassLoaderExample1 {
 
     public static void main(String[] args) throws Exception {
-        Object loader1Insance = load();
-        Object loader2Insance = load();
-        System.out.println("Two instances of our custom CL, loaded same class and are its two instances equal? " + loader1Insance.equals(loader2Insance));
+        System.out.println("Two instances of our custom CL, loaded same class and are its two instances equal? " + load().equals(load()));
 
         System.out.println("In case of default CL two instances are equal, right? " + new IAmLoadedByCustomCL().equals(new IAmLoadedByCustomCL()));
 
