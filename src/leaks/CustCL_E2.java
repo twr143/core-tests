@@ -25,7 +25,7 @@ public class CustCL_E2 {
         ClassLoader childClassLoader = new CustCL_E2.ChildOnlyClassLoader();
         Class<?> childClass = forName(
                 Long.class.getName(), true, childClassLoader);
-        //    return ((classloader.CustCL_E1.LoadedInChildClassLoader) childClass.newInstance());
+        //    return ((classloader.CustomClassLoaderExample1.IAmLoadedByCustomCL) childClass.newInstance());
         //     ClasscastException
 
         return childClass.getDeclaredConstructor(long.class).newInstance(0L);

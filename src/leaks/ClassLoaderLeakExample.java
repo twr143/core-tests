@@ -3,10 +3,7 @@ package leaks;
 
 import org.apache.commons.io.IOUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.stream.Collectors;
 
 /**
  * Example demonstrating a ClassLoader leak.
@@ -66,7 +63,7 @@ public final class ClassLoaderLeakExample {
 
     /**
      * A simple ClassLoader implementation that is only able to load one
-     * class, the LoadedInChildClassLoader class. We have to jump through
+     * class, the IAmLoadedByCustomCL class. We have to jump through
      * some hoops here because we explicitly want to ensure we get a new
      * class each time (instead of reusing the class loaded by the system
      * class loader). If this child class were in a JAR file that wasn't
@@ -84,7 +81,7 @@ public final class ClassLoaderLeakExample {
                 return super.loadClass(name, resolve);
             }
             try {
-                byte[] bytes = IOUtils.toByteArray(getClass().getClassLoader().getResourceAsStream("leaks\\ClassLoaderLeakExample$LoadedInChildClassLoader.class"));
+                byte[] bytes = IOUtils.toByteArray(getClass().getClassLoader().getResourceAsStream("leaks\\ClassLoaderLeakExample$IAmLoadedByCustomCL.class"));
                 Class<?> c = defineClass(name, bytes, 0, bytes.length);
                 if (resolve) {
                     resolveClass(c);
