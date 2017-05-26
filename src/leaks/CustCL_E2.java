@@ -1,4 +1,4 @@
-package classloader;
+package leaks;
 
 import static java.lang.Class.forName;
 

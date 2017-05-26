@@ -1,5 +1,5 @@
 
-package classloader;
+package leaks;
 
 import java.io.IOException;
 import java.nio.file.Files;
