@@ -1,8 +1,7 @@
 
-package leaks;
+package classloader;
 
 import java.io.IOException;
-import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
@@ -81,7 +80,7 @@ public final class ClassLoaderLeakExample {
         return super.loadClass(name, resolve);
       }
       try {
-        Path path = Paths.get("c:\\dev\\play\\demo1\\core-tests\\out\\production\\core-tests\\leaks\\","ClassLoaderLeakExample$LoadedInChildClassLoader"
+        Path path = Paths.get("c:\\dev\\play\\demo1\\core-tests\\out\\production\\core-tests\\classloader\\","ClassLoaderLeakExample$LoadedInChildClassLoader"
             + ".class");
         byte[] classBytes = Files.readAllBytes(path);
         Class<?> c = defineClass(name, classBytes, 0, classBytes.length);
