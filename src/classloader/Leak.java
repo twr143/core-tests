@@ -7,7 +7,7 @@ public class Leak {
 
     public static void main(String[] args) throws InterruptedException {
 
-        Thread thread = new Thread(() -> {
+        final Thread thread = new Thread(() -> {
             while (true) {
                 new ThreadLocal<Object>() {
                     int[] moreBytesToLeak = new int[1024 * 1024 * 25];
