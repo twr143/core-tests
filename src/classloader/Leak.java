@@ -12,12 +12,13 @@ public class Leak {
             public void run() {
                 while (true) {
                     try {
-                        Thread.sleep(100);
-
-                        ThreadLocal<Object> threadLocal = new ThreadLocal<Object>() {
+                        Thread.sleep(10);
+                        new ThreadLocal<Object>() {
                             int[] moreBytesToLeak = new int[1024 * 1024 * 25];
+                            {
+                                set(this);
+                            }
                         };
-                        threadLocal.set(threadLocal);
                     } catch (InterruptedException e) {
                         System.out.println("Interrupted");
                     }
