@@ -11,12 +11,13 @@ public class Leak {
             @Override
             public void run() {
                 while (true) {
-                        new ThreadLocal<Object>() {
-                            int[] moreBytesToLeak = new int[1024 * 1024 * 25];
-                            {
-                                set(this);
-                            }
-                        };
+                    new ThreadLocal<Object>() {
+                        int[] moreBytesToLeak = new int[1024 * 1024 * 25];
+
+                        {
+                            set(this);
+                        }
+                    };
                 }
             }
         };
