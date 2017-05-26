@@ -8,6 +8,8 @@ import static java.lang.Class.forName;
 
 /**
  * Created by ilya on 13.01.2017.
+ *
+ * Here we manually call ClassLoader.defineClass() in our custom child CL and try to cast / check equality in couple of ways.
  */
 public class CustomClassLoaderExample1 {
 
