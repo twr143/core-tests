@@ -1,7 +1,5 @@
 package collectionsCommon;
 
-import java.util.Arrays;
-
 /**
  * Created by ilya on 25.05.2017.
  * <p>
