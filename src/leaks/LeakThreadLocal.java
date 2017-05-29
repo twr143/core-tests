@@ -8,7 +8,7 @@ import java.io.IOException;
 public class LeakThreadLocal {
 
     // True for causing OOM, false to leaking 1 GB of HEAP without GC possibility
-    static final boolean causeOOM = false;
+    static final boolean causeOOM = true;
 
     public static void main(String[] args) throws InterruptedException, IOException {
         // Here is the time to go to your profiler and hook up to the app to monitor heap / call GC manually
