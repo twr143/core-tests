@@ -33,13 +33,15 @@ public class EntryMinWindow
 
       for(int i=0; i<s.length(); i++){
           char c = s.charAt(i);
+           Integer srcIndex = srcMap.get(c);
+          Integer targetIndex = target.get(c);
 
-          if(target.containsKey(c)){
-              if(srcMap.containsKey(c)){
-                  if(srcMap.get(c)<target.get(c)){
+          if(targetIndex!=null){
+              if(srcIndex!=null){
+                  if(srcIndex<targetIndex){
                       count++;
                   }
-                  srcMap.put(c,srcMap.get(c)+1);
+                  srcMap.put(c,srcIndex+1);
               }else{
                   srcMap.put(c,1);
                   count++;
@@ -48,21 +50,25 @@ public class EntryMinWindow
 
           if(count == t.length()){
 //            System.out.println("t.length=count="+count);
-            System.out.println("count:"+count+",c="+c);
+//            System.out.println("count:"+count+",c="+c);
               char sc = s.charAt(left);
 //            System.out.println("sc="+sc);
 //            System.out.println("left="+left);
+              srcIndex = srcMap.get(sc);
+              targetIndex = target.get(sc);
 
-              while (!srcMap.containsKey(sc) || srcMap.get(sc) > target.get(sc)) {
-                  if (srcMap.containsKey(sc) && srcMap.get(sc) > target.get(sc))
-                      srcMap.put(sc, srcMap.get(sc) - 1);
+              while ((srcIndex==null) || srcIndex > targetIndex) {
+                  if ((srcIndex!=null) && srcIndex > targetIndex)
+                      srcMap.put(sc, srcIndex - 1);
                   left++;
                   sc = s.charAt(left);
+                  srcIndex = srcMap.get(sc);
+                  targetIndex = target.get(sc);
               }
 
               if (i - left + 1 < minLen) {
                   result = s.substring(left, i + 1);
-                System.out.println("result="+result);
+//                System.out.println("result="+result);
                   minLen = i - left + 1;
               }
           }
@@ -126,8 +132,8 @@ public class EntryMinWindow
 
   public static void main(String[] args)
   {
-    String s = "sdafhdhscbjedla";
-    String t="abc";
+    String s = "a";
+    String t="a";
     System.out.println("s="+s);
     System.out.println("t="+t);
     String result = minWindow(s,t);

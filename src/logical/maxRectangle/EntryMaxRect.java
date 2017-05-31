@@ -215,15 +215,15 @@ public class EntryMaxRect
   public static void main(String[] args)
   {
 
-    int size= 10000000;
-    int n_waves= 100000;
-    double size_d=size;
-    int[] arr = new int[size];
-    for (int i=0;i<size;i++){
-      double i_d=i;
-      arr[i]=(int)Math.round(Math.abs(i_d*Math.sin(Math.PI*(i_d*n_waves/size_d))));
-    }
-//    int[] arr = {2,3,5,4,2};
+    int size= 6;
+//    int n_waves= 100000;
+//    double size_d=size;
+//    int[] arr = new int[size];
+//    for (int i=0;i<size;i++){
+//      double i_d=i;
+//      arr[i]=(int)Math.round(Math.abs(i_d*Math.sin(Math.PI*(i_d*n_waves/size_d))));
+//    }
+    int[] arr = {4,2,1,3,7};
 //    int[] arr = {2,1,2};
 //      for (int i = 0; i < arr.length; i++)
 //      {
