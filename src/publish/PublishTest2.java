@@ -1,41 +1,57 @@
 package publish;
 
-import java.util.*;
-import java.util.stream.IntStream;
-
 /**
  * Created by MSI-Pc on 09.06.2017.
  */
 public class PublishTest2 {
 
     public static void main(String[] args) throws InterruptedException {
-        final int sampleSize = 1000;
+        new PublishTest2().check();
 
-        Deque<AlwaysSafePublished> deque = new ArrayDeque<>(sampleSize);
-        Thread thread = new Thread(() -> {
-            int amount = 0;
-            while (true) {
-                AlwaysSafePublished alwaysSafePublished = deque.pollLast();
-                while (alwaysSafePublished != null) {
-                    ++amount;
-                    if (alwaysSafePublished.number() != 1) {
-                        throw new RuntimeException("Not safely pusblished at pos " + amount);
+        System.out.println("All save published");
+    }
+
+    final int sampleSize = 10000;
+
+    volatile AlwaysSafePublished alwaysSafePublished;
+
+    void check() throws InterruptedException {
+        Thread checker = new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+                    if (alwaysSafePublished != null) {
+                        alwaysSafePublished.checkCorrect();
+                        alwaysSafePublished = null;
                     }
-                    alwaysSafePublished = deque.pollLast();
-                }
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    System.out.println("Total checked: " + amount);
-                    break;
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException e) {
+                        break;
+                    }
                 }
             }
-        });
-        thread.start();
-        IntStream.range(1, sampleSize).parallel().mapToObj(index -> new AlwaysSafePublished()).forEach(deque::push);
 
-        thread.interrupt();
-        thread.join();
-        System.out.println("All save published");
+        };
+
+        Thread publisher = new Thread() {
+            @Override
+            public void run() {
+                for (int i = 0; i < sampleSize; ++i) {
+                    alwaysSafePublished = new AlwaysSafePublished();
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        System.out.println(e);
+                    }
+                }
+            }
+
+        };
+        checker.start();
+        publisher.start();
+        publisher.join();
+        checker.interrupt();
+        checker.join();
     }
 }
