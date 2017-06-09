@@ -9,22 +9,24 @@ import java.util.stream.IntStream;
 public class PublishTest2 {
 
     public static void main(String[] args) throws InterruptedException {
-        final int sampleSize = 10000;
+        final int sampleSize = 1000;
 
         Deque<AlwaysSafePublished> deque = new ArrayDeque<>(sampleSize);
         Thread thread = new Thread(() -> {
             int amount = 0;
             while (true) {
-                AlwaysSafePublished alwaysSafePublished = deque.pollFirst();
-                if (alwaysSafePublished != null) {
+                AlwaysSafePublished alwaysSafePublished = deque.pollLast();
+                while (alwaysSafePublished != null) {
                     ++amount;
                     if (alwaysSafePublished.number() != 1) {
                         throw new RuntimeException("Not safely pusblished at pos " + amount);
                     }
+                    alwaysSafePublished = deque.pollLast();
                 }
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
+                    System.out.println("Total checked: " + amount);
                     break;
                 }
             }
@@ -35,6 +37,5 @@ public class PublishTest2 {
         thread.interrupt();
         thread.join();
         System.out.println("All save published");
-
     }
 }

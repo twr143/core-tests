@@ -7,12 +7,11 @@ import java.util.Map;
  * Created by ilya on 21.05.2017.
  */
 public class AlwaysSafePublished {
-    private /*final or not no matter*/ Map map = new HashMap();
+    private /*final or not no matter*/ final Map map = new HashMap();
 
     public AlwaysSafePublished() {
-
         try {
-            Thread.sleep(2);
+            Thread.sleep(30);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
