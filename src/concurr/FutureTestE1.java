@@ -7,7 +7,7 @@ import java.util.concurrent.*;
  */
 public class FutureTestE1 {
     public static void main(String[] args) throws Exception {
-        ExecutorService es = Executors.newFixedThreadPool(3);
+        ExecutorService es = java.util.concurrent.Executors.newFixedThreadPool(3);
         ExecutorCompletionService ecs = new ExecutorCompletionService(es);
         ecs.submit(() -> {
 
