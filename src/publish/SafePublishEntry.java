@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 public class SafePublishEntry
 {
 
-  private static final int ARRAY_SIZE=10000; // program will run for 10 secs if 1 ms is delay in constructor
+  private static final int ARRAY_SIZE=100000;
   public static void main(String[] args)
   {
 
@@ -33,6 +33,14 @@ public class SafePublishEntry
         @Override
         public void run() {
 
+          try
+          {
+            Thread.sleep(1);
+          }
+          catch (InterruptedException e)
+          {
+            e.printStackTrace();
+          }
           for(int i = 0; i < ARRAY_SIZE; i++){
               array[i] = new AlwaysSafePublished();
             }
