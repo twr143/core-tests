@@ -12,9 +12,15 @@ public class Keeper
     if (dataLock ==null)
       synchronized (Keeper.class)   {
         if (dataLock ==null)
-          dataLock = new Data();
+          dataLock = createData();
     }
     return dataLock;
+  }
+
+  static Data createData(){
+    Data d = new Data();
+    d.answer=32;
+    return d;
   }
 
   static class DataHolder{

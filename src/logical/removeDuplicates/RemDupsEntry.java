@@ -10,7 +10,7 @@ public class RemDupsEntry
   public static void main(String[] args)
   {
      int[] src = {1,1,1,2,3,3,4,4,4,5};
-    System.out.println(removeDuplicates2(src));
+    System.out.println(removeDuplicates(src));
     System.out.println(Arrays.toString(src));
   }
   //my ugly attempt

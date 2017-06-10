@@ -17,7 +17,7 @@ public class AlwaysSafePublished
 
      try
      {
-       Thread.sleep(2);
+       Thread.sleep(1);
      }
      catch (InterruptedException e)
      {
