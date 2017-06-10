@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 public class SafePublishEntry
 {
 
-  private static final int ARRAY_SIZE=100000;
+  private static final int ARRAY_SIZE=10000;   // this runs for 10 seconds if delay in constructor is 1 ms
   public static void main(String[] args)
   {
 
