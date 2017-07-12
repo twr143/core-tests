@@ -104,7 +104,7 @@ public class NonblockPPEnntry {
       }
 
     }
-    static void print (boolean isPing){
+    protected static void print (boolean isPing){
       String result = isPing?"ping":"pong";
       System.out.println(result+", th \t:"+Thread.currentThread().getId());
 
